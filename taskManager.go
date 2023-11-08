@@ -3,15 +3,18 @@ package main
 import "fmt"
 
 type TaskManager struct {
-	tasks map[Task]bool
+	domesticTasks map[Task]*Memento
+	workTasks map[Task]*Memento
+	builder IBuilder
 }
 
 var taskManagerInstance *TaskManager
 
-func getInstance() *TaskManager {
+func GetInstance() *TaskManager {
 	if taskManagerInstance == nil {
-            fmt.Println("Creating single instance now.")
             taskManagerInstance = &TaskManager{}
+			taskManagerInstance.domesticTasks = make(map[Task]*Memento)
+			taskManagerInstance.workTasks = make(map[Task]*Memento)
     } else {
             fmt.Println("Single instance already created.")
 	}
@@ -19,10 +22,33 @@ func getInstance() *TaskManager {
     return taskManagerInstance
 }
 
-func (tm *TaskManager) addTask (t Task) {
-	tm.tasks[t] = true
+func (tm *TaskManager) setBuilder(b IBuilder) {
+	tm.builder = b
 }
 
-func (tm *TaskManager) removeTask (t Task) {
-	delete(tm.tasks, t)
+func (tm *TaskManager) buildTask(title, description string) {
+	tm.builder.setTitle(title)
+	tm.builder.setDescription(description)
+	
+	if _, ok := tm.builder.(*DomesticBuilder); ok {
+		taskManagerInstance.addDomesticTask(tm.builder.getTask())
+	} else {
+		taskManagerInstance.addWorkTask(tm.builder.getTask())
+	}
+}
+
+func (tm *TaskManager) addDomesticTask (t Task) {
+	tm.domesticTasks[t] = &Memento{}
+}
+
+func (tm *TaskManager) removeDomesticTask (t Task) {
+	delete(tm.domesticTasks, t)
+}
+
+func (tm *TaskManager) addWorkTask (t Task) {
+	tm.workTasks[t] = &Memento{}
+}
+
+func (tm *TaskManager) removeWorkTask (t Task) {
+	delete(tm.workTasks, t)
 }

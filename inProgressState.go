@@ -7,11 +7,11 @@ type InProgressState struct {
 }
 
 func (s *InProgressState) edit(title, description string) error {
-	return fmt.Errorf("You can't edit the task in progress!")
+	return fmt.Errorf("you can't edit the task in progress")
 }
 
 func (s *InProgressState) start() error {
-	return fmt.Errorf("Task is already in progress!")
+	return fmt.Errorf("task is already in progress")
 }
 
 func (s *InProgressState) finish() error {

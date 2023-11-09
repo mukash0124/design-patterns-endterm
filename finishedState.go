@@ -7,13 +7,13 @@ type FinishedState struct {
 }
 
 func (s *FinishedState) edit(title, description string) error {
-	return fmt.Errorf("You can't edit finished task!")
+	return fmt.Errorf("you can't edit finished task")
 }
 
 func (s *FinishedState) start() error {
-	return fmt.Errorf("You can't start finished task!")
+	return fmt.Errorf("you can't start finished task")
 }
 
 func (s *FinishedState) finish() error {
-	return fmt.Errorf("Task is already finished!")
+	return fmt.Errorf("task is already finished")
 }

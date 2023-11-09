@@ -1,6 +1,7 @@
 package main
 
 type DomesticBuilder struct {
+	id int
 	title string
 	description string
 }
@@ -17,10 +18,31 @@ func (b *DomesticBuilder) setDescription (description string) {
 	b.description = description
 }
 
-func (b *DomesticBuilder) getTask() Task {
-	return Task{
+func (b *DomesticBuilder) setID (id int) {
+	b.id = id
+}
+
+func (b *DomesticBuilder) getTask() *Task {
+	t := &Task{
+		id: b.id,
 		title: b.title,
 		description: b.description,
-		currentState: &NotStartedState{},
 	}
+
+	notStartedState := &NotStartedState{
+		task: t,
+	}
+	inProgressState := &InProgressState{
+		task: t,
+	}
+	finishedState := &FinishedState{
+		task: t,
+	}
+
+	t.setState(notStartedState)
+	t.notStarted = notStartedState
+	t.inProgress = inProgressState
+	t.finished = finishedState
+
+	return t
 }

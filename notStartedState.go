@@ -20,5 +20,5 @@ func (s *NotStartedState) start() error {
 }
 
 func (s *NotStartedState) finish() error {
-	return fmt.Errorf("Start the task before finishing!!!")
+	return fmt.Errorf("start the task before finishing")
 }

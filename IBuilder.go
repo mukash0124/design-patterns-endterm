@@ -3,7 +3,8 @@ package main
 type IBuilder interface {
 	setTitle(title string)
 	setDescription(description string)
-	getTask() Task
+	setID(id int)
+	getTask() *Task
 }
 
 func GetBuilder(taskType string) IBuilder {

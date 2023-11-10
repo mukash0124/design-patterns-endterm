@@ -15,8 +15,6 @@ func (s *InProgressState) start() error {
 }
 
 func (s *InProgressState) finish() error {
-	s.task.setState(&FinishedState {
-		task : s.task,
-	})
+	s.task.setState(s.task.finished)
 	return nil
 }

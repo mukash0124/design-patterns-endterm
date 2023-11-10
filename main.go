@@ -69,7 +69,7 @@ func main() {
 						if err == nil {
 							fmt.Println("Task has been successfully started!")
 						} else {
-							fmt.Println("Current state does not allow to use start command!")
+							fmt.Println(err)
 						}
 					case 4:
 						PrintTasks(taskManager.domesticTasks)
@@ -81,7 +81,7 @@ func main() {
 						if err == nil {
 							fmt.Println("Task has been successfully finished!")
 						} else {
-							fmt.Println("Current state does not allow to use finish command!")
+							fmt.Println(err)
 						}
 					case 5:
 						continue
@@ -140,7 +140,7 @@ func main() {
 						if err == nil {
 							fmt.Println("Task has been successfully started!")
 						} else {
-							fmt.Println("Current state does not allow to use start command!")
+							fmt.Println(err)
 						}
 					case 4:
 						PrintTasks(taskManager.workTasks)
@@ -152,7 +152,7 @@ func main() {
 						if err == nil {
 							fmt.Println("Task has been successfully finished!")
 						} else {
-							fmt.Println("Current state does not allow to use finish command!")
+							fmt.Println(err)
 						}
 					case 5:
 						continue

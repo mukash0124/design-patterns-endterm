@@ -13,9 +13,7 @@ func (s *NotStartedState) edit(title, description string) error {
 }
 
 func (s *NotStartedState) start() error {
-	s.task.setState(&InProgressState {
-		task : s.task,
-	})
+	s.task.setState(s.task.inProgress)
 	return nil
 }
 

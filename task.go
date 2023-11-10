@@ -22,8 +22,8 @@ func (t *Task) createMemento() Memento {
 }
 
 func (t *Task) restoreMemento(m Memento) {
-	t.title = m.title
-	t.description = m.description
+	t.title = m.getTitle()
+	t.description = m.getDescription()
 }
 
 func (t *Task) stringifyTask() string {

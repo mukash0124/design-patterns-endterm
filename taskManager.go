@@ -7,17 +7,17 @@ type Pair struct {
 	backup Memento
 }
 
-type TaskManager struct {
+type taskManager struct {
 	domesticTasks []Pair
 	workTasks []Pair
 	builder IBuilder
 }
 
-var taskManagerInstance *TaskManager
+var taskManagerInstance *taskManager
 
-func GetInstance() *TaskManager {
+func GetInstance() *taskManager {
 	if taskManagerInstance == nil {
-            taskManagerInstance = &TaskManager{}
+            taskManagerInstance = &taskManager{}
 			taskManagerInstance.domesticTasks = make([]Pair, 0)
 			taskManagerInstance.workTasks = make([]Pair, 0)
     } else {
@@ -27,11 +27,11 @@ func GetInstance() *TaskManager {
     return taskManagerInstance
 }
 
-func (tm *TaskManager) setBuilder(b IBuilder) {
+func (tm *taskManager) setBuilder(b IBuilder) {
 	tm.builder = b
 }
 
-func (tm *TaskManager) buildTask(title, description string) {
+func (tm *taskManager) buildTask(title, description string) {
 	tm.builder.setTitle(title)
 	tm.builder.setDescription(description)
 	if _, ok := tm.builder.(*DomesticBuilder); ok {
@@ -43,27 +43,27 @@ func (tm *TaskManager) buildTask(title, description string) {
 	}
 }
 
-func (tm *TaskManager) addDomesticTask (t *Task) {
+func (tm *taskManager) addDomesticTask (t *Task) {
 	tm.domesticTasks = append(tm.domesticTasks, Pair{t, Memento{}})
 }
 
-func (tm *TaskManager) removeDomesticTask (id int) {
+func (tm *taskManager) removeDomesticTask (id int) {
 	tm.domesticTasks = append(tm.domesticTasks[:id], tm.domesticTasks[id + 1:]...)
 }
 
-func (tm *TaskManager) addWorkTask (t *Task) {
+func (tm *taskManager) addWorkTask (t *Task) {
 	tm.workTasks = append(tm.workTasks, Pair{t, Memento{}})
 }
 
-func (tm *TaskManager) removeWorkTask (id int) {
+func (tm *taskManager) removeWorkTask (id int) {
 	tm.workTasks = append(tm.workTasks[:id], tm.workTasks[id + 1:]...)
 }
 
-func (tm *TaskManager) checkDomesticRemovability () bool {
+func (tm *taskManager) checkDomesticRemovability () bool {
 	return len(tm.domesticTasks) != 0
 }
 
-func (tm *TaskManager) checkWorkRemovability () bool {
+func (tm *taskManager) checkWorkRemovability () bool {
 	return len(tm.workTasks) != 0
 }
 
